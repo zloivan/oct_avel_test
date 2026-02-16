@@ -1,5 +1,6 @@
 using _Project.Octopus.Scripts;
 using _Project.Octopus.Scripts.Core;
+using _Project.Octopus.Scripts.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,8 +9,13 @@ namespace _Project.Octopus.Bootstrap
 {
     public class OctopusInstaller : LifetimeScope
     {
+        //TESTING
         [SerializeField] private TestingScript _testingScript;
-
+        
+        //LOGIC
+        [SerializeField] private PopupViewUI _popupPrefab;
+        [SerializeField] private Transform _uiRoot;
+       
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<ISaveSystem>(_ =>
@@ -20,6 +26,10 @@ namespace _Project.Octopus.Bootstrap
             }, Lifetime.Singleton);
 
             builder.RegisterComponent(_testingScript);
+            
+            builder.Register<PopupManager>(Lifetime.Singleton)
+                .WithParameter(_popupPrefab)
+                .WithParameter(_uiRoot);
 
             Debug.Log("[OctopusInstaller] Initialized");
         }

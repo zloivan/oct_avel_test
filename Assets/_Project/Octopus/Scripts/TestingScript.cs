@@ -1,5 +1,6 @@
 using _Project.Octopus.Scripts.Core;
 using _Project.Octopus.Scripts.Player;
+using _Project.Octopus.Scripts.UI;
 using UnityEngine;
 using VContainer;
 
@@ -11,11 +12,13 @@ namespace _Project.Octopus.Scripts
         [SerializeField] private PlayerData _loaded;
 
         private ISaveSystem _saveSystem;
+        private PopupManager _popupManager;
 
         [Inject]
-        public void Construct(ISaveSystem saveSystem)
+        public void Construct(ISaveSystem saveSystem, PopupManager popupManager)
         {
             _saveSystem = saveSystem;
+            _popupManager = popupManager;
         }
 
         [ContextMenu("Save")]
@@ -41,6 +44,17 @@ namespace _Project.Octopus.Scripts
         public void DeleteSave()
         {
             _saveSystem.DeleteSave("PlayerData");
+        }
+
+        [ContextMenu("Create Popup")]
+        public void CreatePopup()
+        {
+            var popupConfig = new PopupConfig("Test",
+                "Some super cool message",
+                new PopupButton("Accept", () => { Debug.Log("Accept pressed"); }),
+                new PopupButton("Cancel", () => { Debug.Log("Cancel pressed"); }));
+
+            _popupManager.ShowPopup(popupConfig);
         }
     }
 }
