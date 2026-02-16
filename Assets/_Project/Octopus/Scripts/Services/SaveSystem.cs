@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 
-namespace _Project.Octopus.Scripts.Core
+namespace Octopus.Services
 {
     public class SaveSystem
     {

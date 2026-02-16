@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Octopus.Scripts.UI
+namespace Octopus.UI.Popups
 {
     public class PopupViewUI : MonoBehaviour, IPopup
     {

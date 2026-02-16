@@ -1,11 +1,12 @@
-using _Project.Octopus.Scripts.Core;
-using _Project.Octopus.Scripts.Player;
-using _Project.Octopus.Scripts.UI;
+using Octopus.Core;
+using Octopus.Gameplay.Entities;
+using Octopus.Gameplay.SaveingData;
+using Octopus.Services;
+using Octopus.UI.Popups;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
-namespace _Project.Octopus.Scripts
+namespace Octopus
 {
     public class TestingScript : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Octopus.Scripts.Gameplay
+namespace Octopus.Gameplay
 {
     /// <summary>
     /// Displays live stats about active gameplay characters.

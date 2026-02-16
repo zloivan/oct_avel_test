@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Octopus.Scripts.Gameplay
+namespace Octopus.Gameplay
 {
     public class Character : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace _Project.Octopus.Scripts.UI
+namespace Octopus.UI.Popups
 {
     public interface IPopup
     {

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Octopus.Gameplay.Entities;
 using UnityEngine;
 
-namespace VContainer.Unity
+namespace Octopus.Services
 {
     [UsedImplicitly]
     public class EntityManager

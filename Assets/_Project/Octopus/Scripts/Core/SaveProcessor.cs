@@ -1,6 +1,7 @@
+using Octopus.Services;
 using UnityEngine;
 
-namespace _Project.Octopus.Scripts.Core
+namespace Octopus.Core
 {
     public interface ISaveSystem
     {

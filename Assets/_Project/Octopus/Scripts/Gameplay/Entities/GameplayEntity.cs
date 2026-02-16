@@ -1,6 +1,7 @@
+using Octopus.Services;
 using UnityEngine;
 
-namespace VContainer.Unity
+namespace Octopus.Gameplay.Entities
 {
     public class GameplayEntity : MonoBehaviour, IEntity
     {

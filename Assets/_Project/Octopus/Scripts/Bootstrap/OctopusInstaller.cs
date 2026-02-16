@@ -1,7 +1,9 @@
-using _Project.Octopus.Scripts;
-using _Project.Octopus.Scripts.Core;
-using _Project.Octopus.Scripts.Gameplay;
-using _Project.Octopus.Scripts.UI;
+using Octopus;
+using Octopus.Core;
+using Octopus.Gameplay;
+using Octopus.Gameplay.Entities;
+using Octopus.Services;
+using Octopus.UI.Popups;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

@@ -1,4 +1,4 @@
-namespace VContainer.Unity
+namespace Octopus.Gameplay.Entities
 {
     public interface IEntity
     {
