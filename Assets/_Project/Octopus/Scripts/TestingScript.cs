@@ -52,7 +52,10 @@ namespace _Project.Octopus.Scripts
             var popupConfig = new PopupConfig("Test",
                 "Some super cool message",
                 new PopupButton("Accept", () => { Debug.Log("Accept pressed"); }),
-                new PopupButton("Cancel", () => { Debug.Log("Cancel pressed"); }));
+                new PopupButton("Cancel", () => { Debug.Log("Cancel pressed"); }),
+                new PopupButton("Buy", () => { Debug.Log("Buy pressed"); }),
+                new PopupButton("Sell", () => { Debug.Log("Sell pressed"); })
+                );
 
             _popupManager.ShowPopup(popupConfig);
         }

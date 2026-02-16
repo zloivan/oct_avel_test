@@ -27,3 +27,30 @@ Designers can modify UI layouts, dialog flows, or ScriptableObject configs witho
 
 **Designer benefit:**
 Designers can add/modify/test new levels and assets without programmer involvement. Hot-reload works in Editor. Remote content can be patched post-release.
+
+## Question 3.1: Unity Components for Popup Prefab
+
+### Components Used:
+1. **Canvas** (root)
+    - **Why:** Required for all UI rendering. Set to Screen Space - Overlay for consistent display across resolutions.
+
+2. **Canvas Scaler**
+    - **Why:** Ensures UI scales properly on different screen sizes/resolutions. Use "Scale with Screen Size" mode with 1920x1080 reference.
+
+3. **Image** (background panel)
+    - **Why:** Provides visual container for popup. Semi-transparent to darken background content, improving readability.
+
+4. **TextMeshProUGUI** (title and body)
+    - **Why:** Superior text rendering compared to legacy Unity Text. Supports rich text formatting, better performance, and cleaner appearance.
+
+5. **Button** (for each action)
+    - **Why:** Built-in component handles click events, hover states, and accessibility. Each button contains a TextMeshProUGUI child for label.
+
+6. **Horizontal/Vertical Layout Group** (button container)
+    - **Why:** Automatically arranges 1-5 buttons with consistent spacing, eliminating manual positioning. Adapts to dynamic button count.
+
+7. **Content Size Fitter** (optional, for dynamic sizing)
+    - **Why:** Adjusts popup dimensions based on text length, preventing overflow or excessive whitespace.
+
+### Architecture Decision:
+Separation of data (PopupConfig) from presentation (PopupView) allows runtime button generation without designer intervention. Designers can modify popup prefab appearance (colors, fonts, spacing) without code changes.
