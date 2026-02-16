@@ -9,14 +9,19 @@ namespace _Project.Octopus.Bootstrap
     public class OctopusInstaller : LifetimeScope
     {
         [SerializeField] private TestingScript _testingScript;
+
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<SaveSystem>(Lifetime.Singleton).As<ISaveSystem>();
-            
-            // Регистрируем MonoBehaviour из сцены
+            builder.Register<ISaveSystem>(_ =>
+            {
+                //var saveSystem = new SaveSystem();
+                return new SaveSystem();
+                //Debug Logs
+                //return new SavingLogDecorator(saveSystem);
+            }, Lifetime.Singleton);
+
             builder.RegisterComponent(_testingScript);
-            
-            // Services will be registered here as we progress
+
             Debug.Log("[OctopusInstaller] Initialized");
         }
     }
