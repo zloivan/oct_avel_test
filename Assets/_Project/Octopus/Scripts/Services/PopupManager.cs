@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace _Project.Octopus.Scripts.UI
 {
+    [UsedImplicitly]
     public class PopupManager
     {
         private readonly PopupViewUI _popupPrefab;
@@ -27,12 +29,12 @@ namespace _Project.Octopus.Scripts.UI
 
         public void HidePopup()
         {
-            if (_currentPopup != null)
-            {
-                _currentPopup.Hide();
-                Object.Destroy(_currentPopup.gameObject);
-                _currentPopup = null;
-            }
+            if (_currentPopup == null) 
+                return;
+            
+            _currentPopup.Hide();
+            Object.Destroy(_currentPopup.gameObject);
+            _currentPopup = null;
         }
     }
 }
