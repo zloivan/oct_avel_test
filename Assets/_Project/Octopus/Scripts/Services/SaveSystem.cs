@@ -22,8 +22,8 @@ namespace _Project.Octopus.Scripts.Core
         {
             try
             {
-                string filePath = Path.Combine(_savePath, $"{fileName}.json");
-                string json = JsonUtility.ToJson(data, true);
+                var filePath = Path.Combine(_savePath, $"{fileName}.json");
+                var json = JsonUtility.ToJson(data, true);
                 File.WriteAllText(filePath, json);
                 return true;
             }
@@ -39,7 +39,7 @@ namespace _Project.Octopus.Scripts.Core
         {
             try
             {
-                string filePath = Path.Combine(_savePath, $"{fileName}.json");
+                var filePath = Path.Combine(_savePath, $"{fileName}.json");
 
                 if (!File.Exists(filePath))
                 {
@@ -47,17 +47,15 @@ namespace _Project.Octopus.Scripts.Core
                     return new T();
                 }
 
-                string json = File.ReadAllText(filePath);
-                T data = JsonUtility.FromJson<T>(json);
+                var json = File.ReadAllText(filePath);
+                var data = JsonUtility.FromJson<T>(json);
 
-                // Optional validation
-                if (validator != null && !validator(data))
-                {
-                    Debug.LogWarning($"[SaveSystem] Save file {fileName} failed validation. Returning default.");
-                    return new T();
-                }
+                if (validator == null || validator(data)) 
+                    return data;
+                
+                Debug.LogWarning($"[SaveSystem] Save file {fileName} failed validation. Returning default.");
+                return new T();
 
-                return data;
             }
             catch (Exception e)
             {
@@ -69,7 +67,7 @@ namespace _Project.Octopus.Scripts.Core
 
         public bool SaveExists(string fileName)
         {
-            string filePath = Path.Combine(_savePath, $"{fileName}.json");
+            var filePath = Path.Combine(_savePath, $"{fileName}.json");
             return File.Exists(filePath);
         }
 
@@ -78,7 +76,7 @@ namespace _Project.Octopus.Scripts.Core
         {
             try
             {
-                string filePath = Path.Combine(_savePath, $"{fileName}.json");
+                var filePath = Path.Combine(_savePath, $"{fileName}.json");
                 
                 if (File.Exists(filePath))
                 {

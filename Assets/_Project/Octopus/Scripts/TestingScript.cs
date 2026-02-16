@@ -15,7 +15,7 @@ namespace _Project.Octopus.Scripts
         private ISaveSystem _saveSystem;
         private PopupManager _popupManager;
         private EntityManager _entityManager;
-
+        private const string SAVE_FILE_NAME = "PlayerData";
 
         [Inject]
         public void Construct(ISaveSystem saveSystem, PopupManager popupManager, EntityManager entityManager)
@@ -29,26 +29,21 @@ namespace _Project.Octopus.Scripts
         public void SaveData()
         {
             _loaded = null;
-            _saveSystem.Save("PlayerData", _playerData);
+
+            _saveSystem.Save(SAVE_FILE_NAME, _playerData);
         }
 
         [ContextMenu("Load")]
-        public void LoadData()
-        {
-            _loaded = _saveSystem.Load<PlayerData>("PlayerData");
-        }
+        public void LoadData() =>
+            _loaded = _saveSystem.Load<PlayerData>(SAVE_FILE_NAME);
 
-        [ContextMenu("Save Exsist")]
-        public void SaveExist()
-        {
-            Debug.Log($"Save Exists: {_saveSystem.SaveExists("PlayerData")}");
-        }
+        [ContextMenu("Save Exist")]
+        public void SaveExist() =>
+            Debug.Log($"Save Exists: {_saveSystem.SaveExists(SAVE_FILE_NAME)}");
 
         [ContextMenu("Delete Save")]
-        public void DeleteSave()
-        {
-            _saveSystem.DeleteSave("PlayerData");
-        }
+        public void DeleteSave() =>
+            _saveSystem.DeleteSave(SAVE_FILE_NAME);
 
         [ContextMenu("Create Popup")]
         public void CreatePopup()
@@ -63,6 +58,10 @@ namespace _Project.Octopus.Scripts
 
             _popupManager.ShowPopup(popupConfig);
         }
+
+        [ContextMenu("Close Popup")]
+        public void ClosePopup() =>
+            _popupManager.HidePopup();
 
         [ContextMenu("Log Active Entities")]
         public void LogActiveEntities()

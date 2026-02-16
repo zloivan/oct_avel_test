@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace VContainer.Unity
 {
+    [UsedImplicitly]
     public class EntityManager
     {
         private readonly List<IEntity> _allEntities = new();
@@ -22,10 +24,8 @@ namespace VContainer.Unity
         }
 
 
-        public void Unregister(IEntity entity)
-        {
+        public void Unregister(IEntity entity) =>
             _allEntities.Remove(entity);
-        }
 
         public List<IEntity> GetActiveEntities()
         {
@@ -76,9 +76,7 @@ namespace VContainer.Unity
         }
 
 
-        public void Clear()
-        {
+        public void Clear() =>
             _allEntities.Clear();
-        }
     }
 }
