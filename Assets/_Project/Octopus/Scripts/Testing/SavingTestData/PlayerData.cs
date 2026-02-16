@@ -1,4 +1,4 @@
-namespace Octopus.SaveLoadUtility.SaveingData
+namespace Octopus.Testing.SavingTestData
 {
     [System.Serializable]
     public class PlayerData
