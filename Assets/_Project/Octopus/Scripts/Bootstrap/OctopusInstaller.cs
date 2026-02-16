@@ -1,37 +1,28 @@
-using Octopus;
-using Octopus.Core;
-using Octopus.Gameplay;
-using Octopus.Gameplay.Entities;
-using Octopus.Services;
+using Octopus.CharacterView;
+using Octopus.Entities;
+using Octopus.SaveLoadUtility;
 using Octopus.UI.Popups;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.Octopus.Bootstrap
+namespace Octopus.Bootstrap
 {
     public class OctopusInstaller : LifetimeScope
     {
-        //TESTING
-        [SerializeField] private TestingScript _testingScript;
-        
-        //LOGIC
         [SerializeField] private PopupViewUI _popupPrefab;
         [SerializeField] private Transform _uiRoot;
         [SerializeField] private CharactersView _charactersView;
-        
-       
+
+
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<ISaveSystem>(_ =>
-            {
-                //var saveSystem = new SaveSystem();
-                return new SaveProcessor();
-                //Debug Logs
-            }, Lifetime.Singleton);
+            builder.Register<SaveSystem>(Lifetime.Singleton)
+                .WithParameter(false)
+                .As<ISaveSystem>();
 
-            builder.RegisterComponent(_testingScript);
-            
+            builder.RegisterComponentInHierarchy<TestingScript>();
+
             builder.Register<PopupManager>(Lifetime.Singleton)
                 .WithParameter(_popupPrefab)
                 .WithParameter(_uiRoot);

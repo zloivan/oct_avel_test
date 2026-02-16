@@ -1,7 +1,6 @@
-using Octopus.Core;
-using Octopus.Gameplay.Entities;
-using Octopus.Gameplay.SaveingData;
-using Octopus.Services;
+using Octopus.Entities;
+using Octopus.SaveLoadUtility;
+using Octopus.SaveLoadUtility.SaveingData;
 using Octopus.UI.Popups;
 using UnityEngine;
 using VContainer;

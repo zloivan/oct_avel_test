@@ -1,8 +1,7 @@
 using JetBrains.Annotations;
-using Octopus.UI.Popups;
 using UnityEngine;
 
-namespace Octopus.Services
+namespace Octopus.UI.Popups
 {
     [UsedImplicitly]
     public class PopupManager

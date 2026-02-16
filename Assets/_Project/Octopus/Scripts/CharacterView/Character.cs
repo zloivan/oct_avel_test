@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Octopus.Gameplay
+namespace Octopus.CharacterView
 {
     public class Character : MonoBehaviour
     {

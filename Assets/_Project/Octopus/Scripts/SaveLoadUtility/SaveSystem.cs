@@ -1,15 +1,27 @@
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Octopus.Services
+namespace Octopus.SaveLoadUtility
 {
-    public class SaveSystem
+    public interface ISaveSystem
+    {
+        void Save<T>(string fileName, T data) where T : class;
+        T Load<T>(string fileName) where T : class, new();
+        bool SaveExists(string fileName);
+        void DeleteSave(string fileName);
+    }
+
+    [UsedImplicitly]
+    public class SaveSystem : ISaveSystem
     {
         private readonly string _savePath;
+        private readonly bool _debugMode;
 
-        public SaveSystem()
+        public SaveSystem(bool debugMode = false)
         {
+            _debugMode = debugMode;
             _savePath = Path.Combine(Application.persistentDataPath, "Saves");
 
             if (!Directory.Exists(_savePath))
@@ -18,44 +30,44 @@ namespace Octopus.Services
             }
         }
 
-        public bool Save<T>(string fileName, T data) where T : class
+        public void Save<T>(string fileName, T data) where T : class
         {
+            if (_debugMode) Debug.Log($"[SaveSystem] Saving {fileName}...");
+
             try
             {
                 var filePath = Path.Combine(_savePath, $"{fileName}.json");
                 var json = JsonUtility.ToJson(data, true);
                 File.WriteAllText(filePath, json);
-                return true;
+
+                if (_debugMode) Debug.Log($"[SaveSystem] Saved {fileName} successfully");
             }
             catch (Exception e)
             {
                 Debug.LogError($"[SaveSystem] Failed to save {fileName}: {e.Message}");
-                return false;
             }
         }
 
-
-        public T Load<T>(string fileName, Func<T, bool> validator = null) where T : class, new()
+        public T Load<T>(string fileName) where T : class, new()
         {
+            if (_debugMode) Debug.Log($"[SaveSystem] Loading {fileName}...");
+
             try
             {
                 var filePath = Path.Combine(_savePath, $"{fileName}.json");
 
                 if (!File.Exists(filePath))
                 {
-                    Debug.Log($"[SaveSystem] Save file {fileName} not found. Returning default.");
+                    if (_debugMode)
+                        Debug.LogWarning($"[SaveSystem] Save file {fileName} not found. Returning default.");
                     return new T();
                 }
 
                 var json = File.ReadAllText(filePath);
                 var data = JsonUtility.FromJson<T>(json);
 
-                if (validator == null || validator(data)) 
-                    return data;
-                
-                Debug.LogWarning($"[SaveSystem] Save file {fileName} failed validation. Returning default.");
-                return new T();
-
+                if (_debugMode) Debug.Log($"[SaveSystem] Loaded {fileName} successfully");
+                return data;
             }
             catch (Exception e)
             {
@@ -64,32 +76,36 @@ namespace Octopus.Services
             }
         }
 
-
         public bool SaveExists(string fileName)
         {
             var filePath = Path.Combine(_savePath, $"{fileName}.json");
-            return File.Exists(filePath);
+            var exists = File.Exists(filePath);
+
+            if (_debugMode) Debug.Log($"[SaveSystem] Save {fileName} exists: {exists}");
+            return exists;
         }
 
-
-        public bool DeleteSave(string fileName)
+        public void DeleteSave(string fileName)
         {
+            if (_debugMode) Debug.Log($"[SaveSystem] Deleting {fileName}...");
+
             try
             {
                 var filePath = Path.Combine(_savePath, $"{fileName}.json");
-                
+
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
-                    return true;
+                    if (_debugMode) Debug.Log($"[SaveSystem] Deleted {fileName} successfully");
                 }
-                
-                return false;
+                else
+                {
+                    if (_debugMode) Debug.LogWarning($"[SaveSystem] Save file {fileName} not found");
+                }
             }
             catch (Exception e)
             {
                 Debug.LogError($"[SaveSystem] Failed to delete {fileName}: {e.Message}");
-                return false;
             }
         }
     }

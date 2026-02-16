@@ -1,4 +1,4 @@
-namespace Octopus.Gameplay.SaveingData
+namespace Octopus.SaveLoadUtility.SaveingData
 {
     [System.Serializable]
     public class PlayerData

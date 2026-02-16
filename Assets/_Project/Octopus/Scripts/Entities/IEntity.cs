@@ -1,4 +1,4 @@
-namespace Octopus.Gameplay.Entities
+namespace Octopus.Entities
 {
     public interface IEntity
     {
