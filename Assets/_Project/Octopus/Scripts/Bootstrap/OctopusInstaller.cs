@@ -15,7 +15,6 @@ namespace Octopus.Bootstrap
         [SerializeField] private Transform _uiRoot;
         [SerializeField] private CharactersView _charactersView;
 
-
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<SaveSystem>(Lifetime.Singleton)

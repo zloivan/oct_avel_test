@@ -18,6 +18,9 @@ namespace Octopus.UI.Popups
 
         public void ShowPopup(PopupConfig config)
         {
+            if (_popupPrefab == null || _uiRoot == null)
+                return;
+            
             if (_currentPopup != null)
             {
                 HidePopup();

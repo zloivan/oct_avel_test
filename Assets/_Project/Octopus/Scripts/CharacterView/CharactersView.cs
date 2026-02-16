@@ -20,12 +20,12 @@ namespace Octopus.CharacterView
     public class CharactersView : MonoBehaviour
     {
         [SerializeField] private List<Transform> _characters;
-        [SerializeField] private float _updateInterval = 0.2f; // Update every 200ms
+        [SerializeField] private int _updateEveryNFrames = 5; 
 
         private Text _text;
         private readonly List<Character> _cachedCharacters = new();
         private readonly StringBuilder _stringBuilder = new();
-        private float _timeSinceLastUpdate;
+        private int _frameCounter;
 
         private void Awake()
         {
@@ -41,13 +41,13 @@ namespace Octopus.CharacterView
 
         private void Update()
         {
-            _timeSinceLastUpdate += Time.deltaTime;
+            _frameCounter++;
 
-            if (_timeSinceLastUpdate >= _updateInterval)
-            {
-                UpdateDisplay();
-                _timeSinceLastUpdate = 0f;
-            }
+            if (_frameCounter < _updateEveryNFrames) 
+                return;
+            
+            UpdateDisplay();
+            _frameCounter = 0;
         }
 
         private void CacheCharacterComponents()
@@ -80,7 +80,7 @@ namespace Octopus.CharacterView
 
             foreach (var character in _cachedCharacters)
             {
-                if (character != null) // Handle destroyed characters
+                if (character != null)
                 {
                     totalValue += character.Value;
                 }
@@ -88,7 +88,6 @@ namespace Octopus.CharacterView
 
             var avgValue = _cachedCharacters.Count > 0 ? totalValue / _cachedCharacters.Count : 0f;
 
-            // Use StringBuilder to reduce GC allocations
             _stringBuilder.Clear();
             _stringBuilder.Append("Characters: ");
             _stringBuilder.Append(_cachedCharacters.Count);
