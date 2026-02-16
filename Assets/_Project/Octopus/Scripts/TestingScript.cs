@@ -14,6 +14,7 @@ namespace _Project.Octopus.Scripts
         private ISaveSystem _saveSystem;
         private PopupManager _popupManager;
 
+
         [Inject]
         public void Construct(ISaveSystem saveSystem, PopupManager popupManager)
         {
@@ -55,7 +56,7 @@ namespace _Project.Octopus.Scripts
                 new PopupButton("Cancel", () => { Debug.Log("Cancel pressed"); }),
                 new PopupButton("Buy", () => { Debug.Log("Buy pressed"); }),
                 new PopupButton("Sell", () => { Debug.Log("Sell pressed"); })
-                );
+            );
 
             _popupManager.ShowPopup(popupConfig);
         }

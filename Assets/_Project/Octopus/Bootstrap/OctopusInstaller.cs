@@ -1,5 +1,6 @@
 using _Project.Octopus.Scripts;
 using _Project.Octopus.Scripts.Core;
+using _Project.Octopus.Scripts.Gameplay;
 using _Project.Octopus.Scripts.UI;
 using UnityEngine;
 using VContainer;
@@ -15,6 +16,8 @@ namespace _Project.Octopus.Bootstrap
         //LOGIC
         [SerializeField] private PopupViewUI _popupPrefab;
         [SerializeField] private Transform _uiRoot;
+        [SerializeField] private CharactersView _charactersView;
+        
        
         protected override void Configure(IContainerBuilder builder)
         {
@@ -30,6 +33,8 @@ namespace _Project.Octopus.Bootstrap
             builder.Register<PopupManager>(Lifetime.Singleton)
                 .WithParameter(_popupPrefab)
                 .WithParameter(_uiRoot);
+
+            builder.RegisterComponent(_charactersView);
 
             Debug.Log("[OctopusInstaller] Initialized");
         }
