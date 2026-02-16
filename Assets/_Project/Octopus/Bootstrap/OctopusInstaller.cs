@@ -15,9 +15,8 @@ namespace _Project.Octopus.Bootstrap
             builder.Register<ISaveSystem>(_ =>
             {
                 //var saveSystem = new SaveSystem();
-                return new SaveSystem();
+                return new SaveProcessor();
                 //Debug Logs
-                //return new SavingLogDecorator(saveSystem);
             }, Lifetime.Singleton);
 
             builder.RegisterComponent(_testingScript);
