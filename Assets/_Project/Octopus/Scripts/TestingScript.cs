@@ -3,6 +3,7 @@ using _Project.Octopus.Scripts.Player;
 using _Project.Octopus.Scripts.UI;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace _Project.Octopus.Scripts
 {
@@ -13,13 +14,15 @@ namespace _Project.Octopus.Scripts
 
         private ISaveSystem _saveSystem;
         private PopupManager _popupManager;
+        private EntityManager _entityManager;
 
 
         [Inject]
-        public void Construct(ISaveSystem saveSystem, PopupManager popupManager)
+        public void Construct(ISaveSystem saveSystem, PopupManager popupManager, EntityManager entityManager)
         {
             _saveSystem = saveSystem;
             _popupManager = popupManager;
+            _entityManager = entityManager;
         }
 
         [ContextMenu("Save")]
@@ -59,6 +62,30 @@ namespace _Project.Octopus.Scripts
             );
 
             _popupManager.ShowPopup(popupConfig);
+        }
+
+        [ContextMenu("Log Active Entities")]
+        public void LogActiveEntities()
+        {
+            var count = _entityManager.GetActiveEntityCount();
+            Debug.Log($"[Test] Active entities: {count}");
+
+            var entities = _entityManager.GetActiveEntities();
+            foreach (var entity in entities)
+            {
+                if (entity is GameplayEntity ge)
+                {
+                    Debug.Log($"  - {ge.name} (Active: {ge.IsActive})");
+                }
+            }
+        }
+
+        [ContextMenu("Test Clear")]
+        private void TestClear()
+        {
+            _entityManager.Clear();
+            Debug.Log("[Test] EntityManager cleared");
+            LogActiveEntities();
         }
     }
 }

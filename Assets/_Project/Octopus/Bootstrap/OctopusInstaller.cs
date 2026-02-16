@@ -35,6 +35,8 @@ namespace _Project.Octopus.Bootstrap
                 .WithParameter(_uiRoot);
 
             builder.RegisterComponent(_charactersView);
+            builder.Register<EntityManager>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<EntityInitializer>();
 
             Debug.Log("[OctopusInstaller] Initialized");
         }
