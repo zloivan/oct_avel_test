@@ -2,6 +2,8 @@ using UnityEngine;
 using Azylon.Currency;
 using Azylon.Inventory;
 using Azylon.SaveData;
+using Azylon.UI;
+using Azylon.UI.UIStates;
 
 namespace Azylon.Testing
 {
@@ -12,6 +14,7 @@ namespace Azylon.Testing
         private InventoryService _inventoryService;
         private CurrencyService _currencyService;
         private SaveSystem _saveSystem;
+        private UIStateMachine _uiStateMachine;
 
         private void Start()
         {
@@ -19,6 +22,19 @@ namespace Azylon.Testing
             _saveSystem = new SaveSystem();
             _inventoryService = new InventoryService(_saveSystem);
             _currencyService = new CurrencyService(_currencyConfig, _saveSystem);
+            
+            // Initialize UI State Machine with real states
+            var inventoryPresenter = new InventoryPresenter();
+            var shopPresenter = new ShopPresenter();
+            var rewardPresenter = new RewardPresenter();
+
+            var uiStates = new IUIState[]
+            {
+                new InventoryState(inventoryPresenter),
+                new ShopState(shopPresenter),
+                new RewardState(rewardPresenter)
+            };
+            _uiStateMachine = new UIStateMachine(uiStates);
             
             // Subscribe to events
             _inventoryService.OnInventoryChanged += () => 
@@ -44,6 +60,11 @@ namespace Azylon.Testing
             Debug.Log("R: Spend 50 currency");
             Debug.Log("T: Spend 100 currency");
             Debug.Log("Y: Get current amount");
+            Debug.Log("--- UI State Machine ---");
+            Debug.Log("U: Show Inventory");
+            Debug.Log("I: Show Shop");
+            Debug.Log("O: Show Reward");
+            Debug.Log("P: Show Inventory again (repeat test)");
             Debug.Log("--- Other ---");
             Debug.Log("C: Clear all saves");
             Debug.Log("=================================\n");
@@ -91,6 +112,19 @@ namespace Azylon.Testing
             
             if (Input.GetKeyDown(KeyCode.Y))
                 GetCurrencyAmountTest();
+            
+            // UI State Machine controls
+            if (Input.GetKeyDown(KeyCode.U))
+                SwitchToStateTest<InventoryState>();
+
+            if (Input.GetKeyDown(KeyCode.I))
+                SwitchToStateTest<ShopState>();
+
+            if (Input.GetKeyDown(KeyCode.O))
+                SwitchToStateTest<RewardState>();
+
+            if (Input.GetKeyDown(KeyCode.P))
+                SwitchToStateTest<InventoryState>(); // Repeat test
             
             // Clear saves
             if (Input.GetKeyDown(KeyCode.C))
@@ -164,6 +198,40 @@ namespace Azylon.Testing
         [ContextMenu("Currency/Get Current Amount")]
         private void GetCurrentAmount() => GetCurrencyAmountTest();
         
+        // ===== UI STATE MACHINE TESTS =====
+
+        [ContextMenu("UI State Machine/Show Inventory")]
+        private void ShowInventory() => SwitchToStateTest<InventoryState>();
+
+        [ContextMenu("UI State Machine/Show Shop")]
+        private void ShowShop() => SwitchToStateTest<ShopState>();
+
+        [ContextMenu("UI State Machine/Show Reward")]
+        private void ShowReward() => SwitchToStateTest<RewardState>();
+        
+        [ContextMenu("UI State Machine/Test State Transitions")]
+        private void TestStateTransitions()
+        {
+            Debug.Log("\n=== TESTING UI STATE MACHINE ===\n");
+
+            Debug.Log("--- Test 1: Show Inventory ---");
+            SwitchToStateTest<InventoryState>();
+
+            Debug.Log("\n--- Test 2: Show Shop (should Exit Inventory, Enter Shop) ---");
+            SwitchToStateTest<ShopState>();
+
+            Debug.Log("\n--- Test 3: Show Reward (should Exit Shop, Enter Reward) ---");
+            SwitchToStateTest<RewardState>();
+
+            Debug.Log("\n--- Test 4: Show Inventory again (should Exit Reward, Enter Inventory) ---");
+            SwitchToStateTest<InventoryState>();
+
+            Debug.Log("\n--- Test 5: Repeat Inventory (should Exit Inventory, Enter Inventory again) ---");
+            SwitchToStateTest<InventoryState>();
+
+            Debug.Log("\n=== UI STATE MACHINE TEST COMPLETE ===\n");
+        }
+        
         // ===== GENERAL TESTS =====
         
         [ContextMenu("General/Clear All Saves")]
@@ -194,6 +262,9 @@ namespace Azylon.Testing
             SpendCurrencyTest(75);
             SpendCurrencyTest(1000); // Should fail
             GetCurrencyAmountTest();
+            
+            Debug.Log("\n--- Testing UI State Machine ---");
+            TestStateTransitions();
             
             Debug.Log("\n=== TEST SUITE COMPLETE ===\n");
         }
@@ -260,6 +331,13 @@ namespace Azylon.Testing
         {
             int amount = _currencyService.GetAmount();
             Debug.Log($"[TEST] Current currency amount: {amount}");
+        }
+        
+        private void SwitchToStateTest<T>() where T : IUIState
+        {
+            Debug.Log($"[TEST] Switching to state: {typeof(T).Name}");
+            _uiStateMachine.SwitchTo<T>();
+            Debug.Log($"[TEST] State switch complete");
         }
         
         private void ClearSavesTest()
