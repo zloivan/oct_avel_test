@@ -22,13 +22,11 @@ namespace Azylon.Purchasing
         public IReadOnlyList<ItemDataSO> GetAvailableItemsList() =>
             _itemRepository.GetAllItemsList();
 
-        public PurchaseResult TryPurchaseItem(ItemDataSO itemId)
+        public PurchaseResult TryPurchaseItem(ItemDataSO item)
         {
-            var item = _itemRepository.GetItemById(itemId.GetId());
-            if (item == null)
-                return PurchaseResult.ItemAlreadyOwned;
-            if (!_currencyService.TrySpend(item.Price))
-                return PurchaseResult.InsufficientFunds;
+            if (item == null) return PurchaseResult.InsufficientFunds;
+            if (_inventoryService.HasItem(item.GetId())) return PurchaseResult.ItemAlreadyOwned;
+            if (!_currencyService.TrySpend(item.Price)) return PurchaseResult.InsufficientFunds;
 
             _inventoryService.AddItem(item.GetId());
             return PurchaseResult.Success;

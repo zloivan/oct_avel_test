@@ -6,8 +6,11 @@ namespace Azylon.UI.UIStates
     {
         private readonly ShopPresenter _presenter;
 
-        public ShopState(ShopPresenter presenter) =>
+        public ShopState(ShopPresenter presenter)
+        {
             _presenter = presenter;
+            _presenter.Disable();
+        }
 
         public void Enter() =>
             _presenter.Enable();

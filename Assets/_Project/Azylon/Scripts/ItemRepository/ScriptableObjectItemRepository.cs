@@ -23,6 +23,7 @@ namespace Azylon.ItemRepository
 
 
         public ItemDataSO GetItemById(string id) =>
-            _itemsById[id];
+            _itemsById.GetValueOrDefault(id);
+
     }
 }

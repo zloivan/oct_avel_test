@@ -7,17 +7,17 @@ namespace Azylon.UI.Presenters
     public class RewardPresenter
     {
         private readonly RewardScreenView _view;
-        private readonly UIStateMachine _stateMachine;
+        private UIStateMachine _stateMachine;
         private readonly ICurrencyService _currencyService;
-        
-        
-        public RewardPresenter(RewardScreenView view, ICurrencyService currencyService, UIStateMachine stateMachine)
+
+        public RewardPresenter(RewardScreenView view, ICurrencyService currencyService)
         {
             _view = view;
             _currencyService = currencyService;
-            _stateMachine = stateMachine;
         }
 
+        public void Inject(UIStateMachine stateMachine) =>
+            _stateMachine = stateMachine;
 
         public void Enable()
         {
@@ -35,7 +35,7 @@ namespace Azylon.UI.Presenters
         private void HandleRewardRequest(int rewardAmount)
         {
             _currencyService.Add(rewardAmount);
-            _stateMachine.SwitchTo<InventoryState>();
+            _stateMachine.SwitchTo<ShopState>();
         }
     }
 }

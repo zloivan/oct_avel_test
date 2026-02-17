@@ -6,8 +6,11 @@ namespace Azylon.UI.UIStates
     {
         private readonly InventoryPresenter _presenter;
 
-        public InventoryState(InventoryPresenter presenter) =>
+        public InventoryState(InventoryPresenter presenter)
+        {
             _presenter = presenter;
+            _presenter.Disable();
+        }
 
         public void Enter() =>
             _presenter.Enable();

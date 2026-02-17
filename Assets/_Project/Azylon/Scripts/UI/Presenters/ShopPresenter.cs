@@ -12,18 +12,21 @@ namespace Azylon.UI.Presenters
         private readonly ShopScreenView _view;
         private readonly IShopService _shopService;
         private readonly ICurrencyService _currencyService;
-        private readonly UIStateMachine _stateMachine;
         private readonly PopupManager _popupManager;
 
+        private UIStateMachine _stateMachine;
+
         public ShopPresenter(ShopScreenView view, IShopService shopService, ICurrencyService currencyService,
-            UIStateMachine stateMachine, PopupManager popupManager)
+             PopupManager popupManager)
         {
             _view = view;
             _shopService = shopService;
             _currencyService = currencyService;
-            _stateMachine = stateMachine;
             _popupManager = popupManager;
         }
+
+        public void Inject(UIStateMachine stateMachine) 
+            => _stateMachine = stateMachine;
 
         public void Enable()
         {

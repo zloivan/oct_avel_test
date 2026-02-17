@@ -6,8 +6,11 @@ namespace Azylon.UI.UIStates
     {
         private readonly RewardPresenter _presenter;
 
-        public RewardState(RewardPresenter presenter) =>
+        public RewardState(RewardPresenter presenter)
+        {
             _presenter = presenter;
+            _presenter.Disable();
+        }
 
         public void Enter() =>
             _presenter.Enable();

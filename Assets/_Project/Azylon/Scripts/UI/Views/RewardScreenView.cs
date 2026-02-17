@@ -27,7 +27,6 @@ namespace Azylon.UI.Views
 
         private void Awake()
         {
-            _barWidth = _bar.rect.width;
             _claimButton.onClick.RemoveAllListeners();
             _claimButton.onClick.AddListener(OnClaimPressed);
         }
@@ -50,6 +49,7 @@ namespace Azylon.UI.Views
         public void StartTimingBar()
         {
             _isRunning = true;
+            _barWidth = _bar.rect.width;
             _markerPosition = -_barWidth / 2f;
 
             _markerTween?.Kill();

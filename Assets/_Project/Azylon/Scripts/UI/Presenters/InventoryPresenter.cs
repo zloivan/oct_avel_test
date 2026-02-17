@@ -11,16 +11,20 @@ namespace Azylon.UI.Presenters
         private readonly InventoryScreenView _view;
         private readonly IInventoryService _inventoryService;
         private readonly IItemRepository _itemRepository;
-        private readonly UIStateMachine _stateMachine;
+
+        private UIStateMachine _stateMachine;
 
         public InventoryPresenter(InventoryScreenView view, IInventoryService inventoryService,
-            IItemRepository itemRepository, UIStateMachine stateMachine)
+            IItemRepository itemRepository)
         {
             _view = view;
             _inventoryService = inventoryService;
             _itemRepository = itemRepository;
-            _stateMachine = stateMachine;
         }
+
+        public void Inject(UIStateMachine stateMachine) =>
+            _stateMachine = stateMachine;
+
 
         public void Enable()
         {
