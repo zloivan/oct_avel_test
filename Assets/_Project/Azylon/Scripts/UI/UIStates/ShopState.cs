@@ -13,17 +13,4 @@ namespace Azylon.UI.UIStates
         public void Exit() =>
             _presenter.Disable();
     }
-
-    public class ShopPresenter
-    {
-        public void Enable()
-        {
-            UnityEngine.Debug.Log("[ShopPresenter] Shop UI Enabled");
-        }
-
-        public void Disable()
-        {
-            UnityEngine.Debug.Log("[ShopPresenter] Shop UI Disabled");
-        }
-    }
 }

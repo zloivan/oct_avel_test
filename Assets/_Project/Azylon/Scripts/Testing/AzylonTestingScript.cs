@@ -25,13 +25,13 @@ namespace Azylon.Testing
             
             // Initialize UI State Machine with real states
             var inventoryPresenter = new InventoryPresenter();
-            var shopPresenter = new ShopPresenter();
+            //var shopPresenter = new ShopPresenter();//TODO ADD ACTUAL TESTING
             var rewardPresenter = new RewardPresenter();
 
             var uiStates = new IUIState[]
             {
                 new InventoryState(inventoryPresenter),
-                new ShopState(shopPresenter),
+                //new ShopState(shopPresenter),//TODO ADD ACTUAL TESTING
                 new RewardState(rewardPresenter)
             };
             _uiStateMachine = new UIStateMachine(uiStates);
