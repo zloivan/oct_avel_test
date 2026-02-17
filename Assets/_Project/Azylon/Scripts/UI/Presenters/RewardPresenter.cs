@@ -1,4 +1,4 @@
-namespace Azylon.UI.UIStates
+namespace Azylon.UI.Presenters
 {
     public class RewardPresenter
     {

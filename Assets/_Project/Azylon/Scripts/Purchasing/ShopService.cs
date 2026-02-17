@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Azylon.Currency;
-using Azylon.Data;
 using Azylon.Inventory;
 using Azylon.ItemRepository;
 

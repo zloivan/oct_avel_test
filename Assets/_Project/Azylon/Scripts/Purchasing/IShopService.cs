@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Azylon.Data;
+using Azylon.ItemRepository;
 
 namespace Azylon.Purchasing
 {

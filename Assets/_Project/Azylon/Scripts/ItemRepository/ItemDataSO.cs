@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Azylon.Data
+namespace Azylon.ItemRepository
 {
     [CreateAssetMenu(fileName = "New Item Data", menuName = "Azylon/Configs/Item Data", order = 0)]
     public class ItemDataSO : ScriptableObject

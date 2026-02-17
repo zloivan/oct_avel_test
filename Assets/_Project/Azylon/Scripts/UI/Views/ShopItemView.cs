@@ -1,10 +1,10 @@
 using System;
-using Azylon.Data;
+using Azylon.ItemRepository;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Azylon.UI.UIStates
+namespace Azylon.UI.Views
 {
     public class ShopItemView : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-namespace Azylon.UI
+namespace Azylon.UI.UIStates
 {
     public interface IUIState
     {

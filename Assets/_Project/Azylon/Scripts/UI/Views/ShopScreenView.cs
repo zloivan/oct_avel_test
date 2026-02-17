@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Azylon.Data;
+using Azylon.ItemRepository;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Image = Microsoft.Unity.VisualStudio.Editor.Image;
 
-namespace Azylon.UI.UIStates
+namespace Azylon.UI.Views
 {
-    public class ShopScreen : MonoBehaviour
+    public class ShopScreenView : MonoBehaviour
     {
         public event Action<ItemDataSO> OnPurchaseRequested;
         public event Action OnInventoryRequested;

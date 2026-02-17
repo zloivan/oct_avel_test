@@ -1,19 +1,21 @@
 using Azylon.Currency;
-using Azylon.Data;
+using Azylon.ItemRepository;
 using Azylon.Purchasing;
+using Azylon.UI.UIStates;
+using Azylon.UI.Views;
 using Octopus.UI.Popups;
 
-namespace Azylon.UI.UIStates
+namespace Azylon.UI.Presenters
 {
     public class ShopPresenter
     {
-        private readonly ShopScreen _view;
+        private readonly ShopScreenView _view;
         private readonly IShopService _shopService;
         private readonly ICurrencyService _currencyService;
         private readonly UIStateMachine _stateMachine;
         private readonly PopupManager _popupManager;
 
-        public ShopPresenter(ShopScreen view, IShopService shopService, ICurrencyService currencyService,
+        public ShopPresenter(ShopScreenView view, IShopService shopService, ICurrencyService currencyService,
             UIStateMachine stateMachine, PopupManager popupManager)
         {
             _view = view;
