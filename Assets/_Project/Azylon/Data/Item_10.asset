@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bff15a839164955bcbcfe3211a81b17, type: 3}
+  m_Name: Item_10
+  m_EditorClassIdentifier: Assembly-CSharp::Azylon.Data.ItemDataSO
+  _id: 060fb37a-32f8-4a49-b281-7bb982c6a9fc
+  ItemName: Crossbow Bolt
+  Description: Crossbow ammunition
+  Icon: {fileID: 0}
+  Price: 2
