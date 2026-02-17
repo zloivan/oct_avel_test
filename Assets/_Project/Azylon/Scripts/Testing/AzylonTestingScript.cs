@@ -25,13 +25,13 @@ namespace Azylon.Testing
             _currencyService = new CurrencyService(_currencyConfig, _saveSystem);
             
             // Initialize UI State Machine with real states
-            var inventoryPresenter = new InventoryPresenter();
+            //var inventoryPresenter = new InventoryPresenter();
             //var shopPresenter = new ShopPresenter();//TODO ADD ACTUAL TESTING
             var rewardPresenter = new RewardPresenter();
 
             var uiStates = new IUIState[]
             {
-                new InventoryState(inventoryPresenter),
+                //new InventoryState(inventoryPresenter),
                 //new ShopState(shopPresenter),//TODO ADD ACTUAL TESTING
                 new RewardState(rewardPresenter)
             };
