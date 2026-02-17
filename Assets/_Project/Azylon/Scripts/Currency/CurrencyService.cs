@@ -9,16 +9,15 @@ namespace Azylon.Currency
 
         const string SAVE_KEY = "CurrencyAmount";
 
-
         private int _amount;
         private readonly ISaveSystem _saveSystem;
 
-        public CurrencyService(CurrencyConfig config, ISaveSystem saveSystem)
+        public CurrencyService(CurrencyConfigSO configSO, ISaveSystem saveSystem)
         {
             _saveSystem = saveSystem;
             _amount = _saveSystem.SaveExists(SAVE_KEY)
                 ? _saveSystem.Load<CurrencyData>(SAVE_KEY).Amount
-                : config.GetStartingAmount();
+                : configSO.GetStartingAmount();
         }
 
         public int GetAmount() =>

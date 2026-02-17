@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Azylon.Currency
 {
     [CreateAssetMenu(fileName = "New Currency Config", menuName = "Azylon/Configs/Currency Config", order = 0)]
-    public class CurrencyConfig : ScriptableObject
+    public class CurrencyConfigSO : ScriptableObject
     {
         [SerializeField] private int _startingAmount = 100;
         
