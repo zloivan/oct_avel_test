@@ -40,7 +40,7 @@ namespace Azulon.Bootstrap
             // Presenters — без StateMachine
             var shopPresenter = new ShopPresenter(_shopScreenView, shopService, currencyService, popupManager);
             var inventoryPresenter = new InventoryPresenter(_inventoryScreenView, inventoryService, itemRepository);
-            var rewardPresenter = new RewardPresenter(_rewardScreenView, currencyService);
+            var rewardPresenter = new RewardPresenter(_rewardScreenView, currencyService, popupManager);
 
             // FSM
             var stateMachine = new UIStateMachine(new IUIState[]
