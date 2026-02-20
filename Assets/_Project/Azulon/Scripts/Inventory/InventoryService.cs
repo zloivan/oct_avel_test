@@ -12,10 +12,12 @@ namespace Azulon.Inventory
 
         private readonly List<string> _ownedItemsIdList;
         private readonly ISaveSystem _saveSystem;
+        private readonly InventoryOrganizer _organizer;
 
-        public InventoryService(ISaveSystem saveSystem)
+        public InventoryService(ISaveSystem saveSystem, InventoryOrganizer organizer)
         {
             _saveSystem = saveSystem;
+            _organizer = organizer;
             _ownedItemsIdList = _saveSystem.SaveExists(SAVE_KEY)
                 ? _saveSystem.Load<InventoryData>(SAVE_KEY).OwnedItemsIdList
                 : new List<string>();
@@ -33,6 +35,7 @@ namespace Azulon.Inventory
                 return;
 
             _ownedItemsIdList.Add(itemId);
+            _organizer.PlaceItem(itemId);
             _saveSystem.Save(SAVE_KEY, new InventoryData { OwnedItemsIdList = _ownedItemsIdList });
             OnInventoryChanged?.Invoke();
         }
@@ -43,6 +46,7 @@ namespace Azulon.Inventory
                 return;
 
             _ownedItemsIdList.Remove(itemId);
+            _organizer.RemoveItem(itemId);
             _saveSystem.Save(SAVE_KEY, new InventoryData { OwnedItemsIdList = _ownedItemsIdList });
             OnInventoryChanged?.Invoke();
         }

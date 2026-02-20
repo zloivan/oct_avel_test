@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 9101872429395978487}
   - component: {fileID: 732542941283641228}
   m_Layer: 5
-  m_Name: ItemView
+  m_Name: ShopItemView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

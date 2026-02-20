@@ -20,7 +20,7 @@ namespace Azulon.Testing
         {
             // Initialize services
             _saveSystem = new SaveSystem();
-            _inventoryService = new InventoryService(_saveSystem);
+            //_inventoryService = new InventoryService(_saveSystem);
             _currencyService = new CurrencyService(_currencyConfig, _saveSystem);
             
             // Initialize UI State Machine with real states
@@ -347,7 +347,7 @@ namespace Azulon.Testing
             _saveSystem.DeleteSave("CurrencyAmount");
             
             // Reinitialize services
-            _inventoryService = new InventoryService(_saveSystem);
+           // _inventoryService = new InventoryService(_saveSystem);
             _currencyService = new CurrencyService(_currencyConfig, _saveSystem);
             
             // Resubscribe to events

@@ -29,9 +29,12 @@ namespace Azulon.Bootstrap
             var itemRepository = new ScriptableObjectItemRepository(_itemDataArray);
             var saveSystem = new SaveSystem();
 
+            // Inventory Infrastructure
+            var inventoryOrganizer = new InventoryOrganizer(saveSystem);
+
             // Services
             var currencyService = new CurrencyService(_currencyConfigSO, saveSystem);
-            var inventoryService = new InventoryService(saveSystem);
+            var inventoryService = new InventoryService(saveSystem, inventoryOrganizer);
             var shopService = new ShopService(itemRepository, currencyService, inventoryService);
 
             // UI Infrastructure
@@ -39,7 +42,9 @@ namespace Azulon.Bootstrap
 
             // Presenters — без StateMachine
             var shopPresenter = new ShopPresenter(_shopScreenView, shopService, currencyService, popupManager);
-            var inventoryPresenter = new InventoryPresenter(_inventoryScreenView, inventoryService, itemRepository);
+            var inventoryPresenter = new InventoryPresenter(_inventoryScreenView, inventoryService, itemRepository,
+                inventoryOrganizer);
+
             var rewardPresenter = new RewardPresenter(_rewardScreenView, currencyService, popupManager);
 
             // FSM
