@@ -25,29 +25,23 @@ namespace Azulon.Bootstrap
 
         private void Awake()
         {
-            // Data
             var itemRepository = new ScriptableObjectItemRepository(_itemDataArray);
             var saveSystem = new SaveSystem();
 
-            // Inventory Infrastructure
             var inventoryOrganizer = new InventoryOrganizer(saveSystem);
 
-            // Services
             var currencyService = new CurrencyService(_currencyConfigSO, saveSystem);
-            var inventoryService = new InventoryService(saveSystem, inventoryOrganizer);
+            var inventoryService = new InventoryService(inventoryOrganizer);
             var shopService = new ShopService(itemRepository, currencyService, inventoryService);
 
-            // UI Infrastructure
             var popupManager = new PopupManager(_popupView, _uiRoot);
 
-            // Presenters — без StateMachine
             var shopPresenter = new ShopPresenter(_shopScreenView, shopService, currencyService, popupManager);
             var inventoryPresenter = new InventoryPresenter(_inventoryScreenView, inventoryService, itemRepository,
                 inventoryOrganizer);
 
             var rewardPresenter = new RewardPresenter(_rewardScreenView, currencyService, popupManager);
 
-            // FSM
             var stateMachine = new UIStateMachine(new IUIState[]
             {
                 new ShopState(shopPresenter),
@@ -55,12 +49,10 @@ namespace Azulon.Bootstrap
                 new RewardState(rewardPresenter)
             });
 
-            // Inject FSM (circular dep resolution)
             shopPresenter.Inject(stateMachine);
             inventoryPresenter.Inject(stateMachine);
             rewardPresenter.Inject(stateMachine);
 
-            // Start
             stateMachine.SwitchTo<ShopState>();
         }
     }

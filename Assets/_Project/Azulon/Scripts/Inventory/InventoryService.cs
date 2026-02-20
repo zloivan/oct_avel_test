@@ -8,46 +8,28 @@ namespace Azulon.Inventory
     {
         public event Action OnInventoryChanged;
 
-        private const string SAVE_KEY = "InventoryItems";
-
-        private readonly List<string> _ownedItemsIdList;
-        private readonly ISaveSystem _saveSystem;
         private readonly InventoryOrganizer _organizer;
 
-        public InventoryService(ISaveSystem saveSystem, InventoryOrganizer organizer)
-        {
-            _saveSystem = saveSystem;
+        public InventoryService(InventoryOrganizer organizer) =>
             _organizer = organizer;
-            _ownedItemsIdList = _saveSystem.SaveExists(SAVE_KEY)
-                ? _saveSystem.Load<InventoryData>(SAVE_KEY).OwnedItemsIdList
-                : new List<string>();
-        }
 
         public IReadOnlyList<string> OwnedItemsIdList() =>
-            _ownedItemsIdList;
+            _organizer.GetOwnedItems();
 
         public bool HasItem(string itemId) =>
-            _ownedItemsIdList.Contains(itemId);
+            _organizer.HasItem(itemId);
 
         public void AddItem(string itemId)
         {
-            if (_ownedItemsIdList.Contains(itemId))
-                return;
-
-            _ownedItemsIdList.Add(itemId);
+            if (_organizer.HasItem(itemId)) return;
             _organizer.PlaceItem(itemId);
-            _saveSystem.Save(SAVE_KEY, new InventoryData { OwnedItemsIdList = _ownedItemsIdList });
             OnInventoryChanged?.Invoke();
         }
 
         public void RemoveItem(string itemId)
         {
-            if (!_ownedItemsIdList.Contains(itemId))
-                return;
-
-            _ownedItemsIdList.Remove(itemId);
+            if (!_organizer.HasItem(itemId)) return;
             _organizer.RemoveItem(itemId);
-            _saveSystem.Save(SAVE_KEY, new InventoryData { OwnedItemsIdList = _ownedItemsIdList });
             OnInventoryChanged?.Invoke();
         }
     }

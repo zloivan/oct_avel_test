@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Azulon.SaveData;
 
 namespace Azulon.Inventory
@@ -47,6 +49,12 @@ namespace Azulon.Inventory
             (_slotsArray[from], _slotsArray[to]) = (_slotsArray[to], _slotsArray[from]);
             Save();
         }
+
+        public bool HasItem(string itemId) =>
+            Array.IndexOf(_slotsArray, itemId) >= 0;
+
+        public IReadOnlyList<string> GetOwnedItems() =>
+            _slotsArray.Where(slot => slot != null).ToList();
 
         private void Save() =>
             _saveSystem.Save(SAVE_KEY, new InventoryOrganizerData { SlotIdsArray = _slotsArray });
