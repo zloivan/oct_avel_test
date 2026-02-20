@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 6856824903438860910}
   - component: {fileID: 2464348489425316537}
   - component: {fileID: 675849732600650675}
+  - component: {fileID: 4683906255193124280}
   m_Layer: 5
   m_Name: PopupView
   m_TagString: Untagged
@@ -373,6 +374,20 @@ MonoBehaviour:
   _bodyText: {fileID: 2162876875198955726}
   _buttonsContainer: {fileID: 6782854257169978232}
   _buttonPrefab: {fileID: 2135357812276692637, guid: 552a7ea7855f24c8cacce206dc9801ec, type: 3}
+  _canvasGroup: {fileID: 4683906255193124280}
+  _popupBody: {fileID: 8256751519136449911}
+--- !u!225 &4683906255193124280
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505721262659591542}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2609206771744014819
 GameObject:
   m_ObjectHideFlags: 0

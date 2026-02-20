@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -21,10 +22,8 @@ namespace Azulon.UI.Popups
             if (_popupPrefab == null || _uiRoot == null)
                 return;
 
-            if (_currentPopup != null)
-            {
+            if (_currentPopup != null) 
                 HidePopup();
-            }
 
             _currentPopup = Object.Instantiate(_popupPrefab, _uiRoot);
             _currentPopup.Show(config);
@@ -35,9 +34,17 @@ namespace Azulon.UI.Popups
             if (_currentPopup == null)
                 return;
 
-            _currentPopup.Hide();
-            Object.Destroy(_currentPopup.gameObject);
+            var popup = _currentPopup;
+            
             _currentPopup = null;
+            AwaitAndDestroy(popup).Forget();
+        }
+        
+        private async UniTaskVoid AwaitAndDestroy(PopupViewUI popup)
+        {
+            await popup.HideAsync();
+            if (popup != null)
+                Object.Destroy(popup.gameObject);
         }
     }
 }

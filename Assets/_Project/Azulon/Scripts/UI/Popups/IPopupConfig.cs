@@ -2,12 +2,6 @@ using System;
 
 namespace Azulon.UI.Popups
 {
-    public interface IPopup
-    {
-        void Show(PopupConfig config);
-        void Hide();
-    }
-    
     public struct PopupConfig
     {
         public string Title;

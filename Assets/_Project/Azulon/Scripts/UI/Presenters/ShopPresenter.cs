@@ -17,7 +17,7 @@ namespace Azulon.UI.Presenters
         private UIStateMachine _stateMachine;
 
         public ShopPresenter(ShopScreenView view, IShopService shopService, ICurrencyService currencyService,
-             PopupManager popupManager)
+            PopupManager popupManager)
         {
             _view = view;
             _shopService = shopService;
@@ -25,8 +25,8 @@ namespace Azulon.UI.Presenters
             _popupManager = popupManager;
         }
 
-        public void Inject(UIStateMachine stateMachine) 
-            => _stateMachine = stateMachine;
+        public void Inject(UIStateMachine stateMachine) =>
+            _stateMachine = stateMachine;
 
         public void Enable()
         {
@@ -59,17 +59,19 @@ namespace Azulon.UI.Presenters
             {
                 case PurchaseResult.Success:
                     _popupManager.ShowPopup(new PopupConfig("Purchase Successful",
-                        "You have successfully purchased the item.", new PopupButton("OK", () => { })));
+                        "You have successfully purchased the item.",
+                        new PopupButton("OK", () => { _popupManager.HidePopup(); })));
                     break;
 
                 case PurchaseResult.ItemAlreadyOwned:
                     _popupManager.ShowPopup(new PopupConfig("Purchase Failed", "You already own this item.",
-                        new PopupButton("OK", () => { })));
+                        new PopupButton("OK", () => { _popupManager.HidePopup(); })));
                     break;
 
                 case PurchaseResult.InsufficientFunds:
                     _popupManager.ShowPopup(new PopupConfig("Purchase Failed",
-                        "You do not have enough currency to purchase this item.", new PopupButton("OK", () => { })));
+                        "You do not have enough currency to purchase this item.",
+                        new PopupButton("OK", () => { _popupManager.HidePopup(); })));
                     break;
             }
         }
