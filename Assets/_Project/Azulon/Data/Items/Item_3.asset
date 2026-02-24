@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 1d00a0c4-7abd-4570-b7f2-f0dcd05bb134
   ItemName: Bow
   Description: Basic Bow
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 330899d6a82454842b0eae5f7760cfdd, type: 3}
   Price: 6

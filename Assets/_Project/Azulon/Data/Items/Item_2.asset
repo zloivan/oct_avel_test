@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 8fbbbee9-5232-48f7-8b97-54225a7db04d
   ItemName: Crossbow
   Description: Basic Crossbow
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 747863a1a18664d1f94648debd602fcb, type: 3}
   Price: 7

@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 838c235b-5004-44bc-b13f-8015cac9b106
   ItemName: Sward
   Description: Basic Sward
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: ce8ae0f1e04754a1f92388fdf240a4b3, type: 3}
   Price: 5

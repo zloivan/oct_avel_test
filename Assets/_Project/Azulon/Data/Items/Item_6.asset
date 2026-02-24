@@ -16,4 +16,4 @@ MonoBehaviour:
   ItemName: Medium Health Postion
   Description: Medium Health Postion restore 50% of HP
   Icon: {fileID: 0}
-  Price: 10
+  Price: 400
