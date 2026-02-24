@@ -8,7 +8,6 @@ namespace Azulon.UI.Presenters
     public class InventoryPresenter
     {
         private readonly InventoryScreenView _view;
-        private readonly IInventoryService _inventoryService;
         private readonly IItemRepository _itemRepository;
         private readonly InventoryOrganizer _organizer;
 
@@ -18,7 +17,6 @@ namespace Azulon.UI.Presenters
             IItemRepository itemRepository, InventoryOrganizer organizer)
         {
             _view = view;
-            _inventoryService = inventoryService;
             _itemRepository = itemRepository;
             _organizer = organizer;
         }
@@ -26,10 +24,8 @@ namespace Azulon.UI.Presenters
         public void Inject(UIStateMachine stateMachine) =>
             _stateMachine = stateMachine;
 
-
         public void Enable()
         {
-            _inventoryService.OnInventoryChanged += RefreshSlots;
             _view.OnBackRequested += HandleBack;
             _view.OnSwapRequested += HandleSwap;
             RefreshSlots();
@@ -37,9 +33,9 @@ namespace Azulon.UI.Presenters
             _view.gameObject.SetActive(true);
         }
 
-        private void HandleSwap(int flom, int to)
+        private void HandleSwap(int from, int to)
         {
-            _organizer.SwapSlots(flom, to);
+            _organizer.SwapSlots(from, to);
             RefreshSlots();
         }
 
@@ -55,17 +51,13 @@ namespace Azulon.UI.Presenters
 
         public void Disable()
         {
-            _inventoryService.OnInventoryChanged -= RefreshSlots;
             _view.OnBackRequested -= HandleBack;
             _view.OnSwapRequested -= HandleSwap;
             _view.gameObject.SetActive(false);
         }
 
 
-        private void HandleBack()
-        {
-            //TODO: Implement stack in state machine
+        private void HandleBack() =>
             _stateMachine.SwitchTo<ShopState>();
-        }
     }
 }

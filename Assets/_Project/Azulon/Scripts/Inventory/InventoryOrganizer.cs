@@ -28,6 +28,7 @@ namespace Azulon.Inventory
             var idx = Array.IndexOf(_slotsArray, null);
             if (idx < 0)
                 return;
+
             _slotsArray[idx] = itemId;
             Save();
         }
@@ -67,6 +68,12 @@ namespace Azulon.Inventory
 
             var slotsLength = Math.Min(data.SlotIdsArray.Length, SLOT_COUNT);
             Array.Copy(data.SlotIdsArray, _slotsArray, slotsLength);
+            
+            for (var i = 0; i < slotsLength; i++)
+            {
+                if (string.IsNullOrEmpty(_slotsArray[i]))
+                    _slotsArray[i] = null;
+            }
         }
     }
 }

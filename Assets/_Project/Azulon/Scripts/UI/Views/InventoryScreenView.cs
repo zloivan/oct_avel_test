@@ -12,13 +12,8 @@ namespace Azulon.UI.Views
         public event Action OnBackRequested;
         public event Action<int, int> OnSwapRequested;
 
-
-        [FormerlySerializedAs("_itemsContainer")] [SerializeField]
-        private Transform _slotsContainer;
-
-        [FormerlySerializedAs("_itemViewPrefab")] [SerializeField]
-        private InventorySlotView _slotViewPrefab;
-
+        [SerializeField] private Transform _slotsContainer;
+        [SerializeField] private InventorySlotView _slotViewPrefab;
         [SerializeField] private Button _backButton;
 
         private InventorySlotView[] _slotsArray;
@@ -27,7 +22,7 @@ namespace Azulon.UI.Views
         {
             foreach (Transform child in _slotsContainer)
                 Destroy(child.gameObject);
-            
+
             _backButton.onClick.AddListener(() => OnBackRequested?.Invoke());
 
             _slotsArray = new InventorySlotView[InventoryOrganizer.SLOT_COUNT];
@@ -39,9 +34,21 @@ namespace Azulon.UI.Views
             }
         }
 
-        private void OnDestroy() => _backButton.onClick.RemoveAllListeners();
-        
+        private void OnDestroy() =>
+            _backButton.onClick.RemoveAllListeners();
+
         public void SetSlot(int index, ItemDataSO item) =>
             _slotsArray[index].SetItem(item);
+
+
+        private void RequestSwap(int from, int to) =>
+            OnSwapRequested?.Invoke(from, to);
+
+        //DEBUG
+        [ContextMenu("Test Swap")]
+        private void TestSwap()
+        {
+            RequestSwap(2,0);
+        }
     }
 }
