@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ECommerce.DataAccess;
 
-namespace DefaultNamespace
+namespace ECommerce.Domain
 {
     public class ProductService
     {

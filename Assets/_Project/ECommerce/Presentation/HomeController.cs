@@ -1,10 +1,9 @@
-using System;
 using System.Text;
-using DefaultNamespace;
+using ECommerce.Domain;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.ECommerce.Presentation
+namespace ECommerce.Presentation
 {
     public class HomeController : MonoBehaviour
     {

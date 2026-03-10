@@ -1,0 +1,16 @@
+{
+    "name": "EcommerceV2.DataAccess",
+    "rootNamespace": "",
+    "references": [
+        "EcommerceV2.Domain"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

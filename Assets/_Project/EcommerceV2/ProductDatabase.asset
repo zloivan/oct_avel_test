@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389fa8c312474a5bbaabbde06c6b4216, type: 3}
+  m_Name: ProductDatabase
+  m_EditorClassIdentifier: EcommerceV2.DataAccess::_Project.EcommerceV2.DataAccess.ProductDatabase
+  Products:
+  - ProductId: 0
+    Name: Product 1
+    Description: Some Product
+    UnitPrice: 10
+    IsFeatured: 1
+  - ProductId: 1
+    Name: Product 2
+    Description: Some Product
+    UnitPrice: 15
+    IsFeatured: 1
+  - ProductId: 2
+    Name: Product 3
+    Description: Some Product
+    UnitPrice: 20
+    IsFeatured: 1
+  - ProductId: 3
+    Name: Product 4
+    Description: Some Product
+    UnitPrice: 25
+    IsFeatured: 1
