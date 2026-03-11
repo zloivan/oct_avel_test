@@ -11,14 +11,15 @@ namespace EcommerceV2.Domain
 
         public override Basket Apply(Basket basket)
         {
-            if (!_userContext.IsPreferredCustomer)
-                return basket;
-
-            return CreateDiscountedBasket(basket, extent => new Extent
+            var evaluatedBasket = new Basket(basket.User);
+            
+            foreach (var extent in basket.Contents)
             {
-                Product = extent.Product.WithDiscount(0.95f),
-                Quantity = extent.Quantity,
-            });
+                extent.Product = extent.Product.WithDiscount(_userContext);
+                evaluatedBasket.Contents.Add(extent);
+            }
+           
+            return evaluatedBasket;
         }
     }
 }

@@ -10,12 +10,12 @@ namespace EcommerceV2.PresentationModel
         public HomeController(ProductRepository repository) =>
             _repository = repository;
 
-        public FeaturedProductsViewModel Index(bool isPreferredCustomer)
+        public FeaturedProductsViewModel Index(IUserContext user)
         {
             var vm = new FeaturedProductsViewModel();
             var productService = new ProductService(_repository);
 
-            var products = productService.GetFeaturedProducts(isPreferredCustomer);
+            var products = productService.GetFeaturedProducts(user);
 
             foreach (var product in products)
             {

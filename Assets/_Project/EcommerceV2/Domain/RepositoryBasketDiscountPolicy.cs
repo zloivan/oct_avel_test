@@ -8,21 +8,25 @@ namespace EcommerceV2.Domain
         private readonly DiscountRepository _discountRepository;
 
         public RepositoryBasketDiscountPolicy(DiscountRepository discountRepository) =>
-            _discountRepository = discountRepository ?? throw new ArgumentNullException(nameof(discountRepository));
+            _discountRepository = discountRepository
+                                  ?? throw new ArgumentNullException(nameof(discountRepository));
 
         public override Basket Apply(Basket basket)
         {
-            var discountedNames = _discountRepository.GetDiscountedProducts()
-                .Select(p => p.Name).ToHashSet();
-            
-            //Template method
-            return CreateDiscountedBasket(basket, extent => new Extent
+            var discounts = _discountRepository.GetDiscountedProducts().ToList();
+
+            var evaluatedBasket = new Basket(basket.User);
+
+            foreach (var extent in basket.Contents)
             {
-                Product  = discountedNames.Contains(extent.Product.Name)
-                    ? extent.Product.WithDiscount(0.95f)
-                    : extent.Product,
-                Quantity = extent.Quantity
-            });
+                var product = discounts.Where(n => n.Id == extent.Product.Id)
+                    .DefaultIfEmpty(extent.Product)
+                    .SingleOrDefault();
+
+                evaluatedBasket.Contents.Add(extent.WithItem(product));
+            }
+
+            return evaluatedBasket;
         }
     }
 }

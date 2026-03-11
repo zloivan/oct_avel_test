@@ -10,9 +10,9 @@ namespace EcommerceV2.PresentationModel
         public BasketController(IBasketService basketService) =>
             _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
 
-        public BasketViewModel GetBasket()
+        public BasketViewModel GetBasket(IUserContext user)
         {
-            var basket = _basketService.GetBasket();
+            var basket = _basketService.GetBasket(user);
 
             var vm = new BasketViewModel();
             foreach (var extent in basket.Contents)
@@ -26,7 +26,7 @@ namespace EcommerceV2.PresentationModel
         public void AddToBasket(Product product, int quantity) =>
             _basketService.AddToBasket(product, quantity);
 
-        public void EmptyBasket() =>
-            _basketService.EmptyBasket();
+        public void EmptyBasket(IUserContext user) =>
+            _basketService.EmptyBasket(user);
     }
 }

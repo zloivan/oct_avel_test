@@ -4,9 +4,16 @@ namespace EcommerceV2.DataAccess
 {
     public class InMemoryBasketRepository : BasketRepository
     {
-        private readonly Basket _basket = new() { };
+        private readonly Basket _basket;
+        private IUserContext _basketOwner;
 
-        public override Basket GetBasketFor() =>
+        public InMemoryBasketRepository(IUserContext basketOwner)
+        {
+            _basketOwner = basketOwner;
+            _basket = new Basket(basketOwner);
+        }
+
+        public override Basket GetBasketFor(IUserContext user) =>
             _basket;
 
         public override void AddToBasket(Product product, int quantity)
@@ -17,10 +24,10 @@ namespace EcommerceV2.DataAccess
             if (existing != null)
                 existing.Quantity += quantity;
             else
-                _basket.Contents.Add(new Extent { Product = product, Quantity = quantity });
+                _basket.Contents.Add(new Extent(product) { Quantity = quantity });
         }
 
-        public override void EmptyBasket() =>
+        public override void EmptyBasket(IUserContext user) =>
             _basket.Contents.Clear();
     }
 }

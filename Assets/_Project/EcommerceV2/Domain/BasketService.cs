@@ -14,13 +14,13 @@ namespace EcommerceV2.Domain
                 basketDiscountPolicy ?? throw new ArgumentNullException(nameof(basketDiscountPolicy));
         }
 
-        public Basket GetBasket() =>
-            _basketDiscountPolicy.Apply(_basketRepository.GetBasketFor());
+        public Basket GetBasket(IUserContext user) =>
+            _basketDiscountPolicy.Apply(_basketRepository.GetBasketFor(user));
 
         public void AddToBasket(Product product, int quantity) =>
             _basketRepository.AddToBasket(product, quantity);
 
-        public void EmptyBasket() =>
-            _basketRepository.EmptyBasket();
+        public void EmptyBasket(IUserContext user) =>
+            _basketRepository.EmptyBasket(user);
     }
 }

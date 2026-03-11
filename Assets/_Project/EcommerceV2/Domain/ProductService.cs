@@ -11,12 +11,10 @@ namespace EcommerceV2.Domain
         public ProductService(ProductRepository repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        public IEnumerable<Product> GetFeaturedProducts(bool isPreferredCustomer)
+        public IEnumerable<Product> GetFeaturedProducts(IUserContext user)
         {
-            var discount = isPreferredCustomer ? 0.95f : 1f;
-
             return _repository.GetFeaturedProducts()
-                .Select(p => p.WithDiscount(discount));
+                .Select(p => p.WithDiscount(user));
         }
     }
 }
