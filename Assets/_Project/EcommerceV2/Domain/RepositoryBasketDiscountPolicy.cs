@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace EcommerceV2.Domain
@@ -13,10 +12,10 @@ namespace EcommerceV2.Domain
 
         public override Basket Apply(Basket basket)
         {
-            var discountedNames = new HashSet<string>(
-                _discountRepository.GetDiscountedProducts()
-                    .Select(p => p.Name));
+            var discountedNames = _discountRepository.GetDiscountedProducts()
+                .Select(p => p.Name).ToHashSet();
             
+            //Template method
             return CreateDiscountedBasket(basket, extent => new Extent
             {
                 Product  = discountedNames.Contains(extent.Product.Name)

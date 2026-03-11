@@ -1,3 +1,5 @@
+using System;
+
 namespace EcommerceV2.Domain
 {
     public class DefaultProductDiscountPolicy : BasketDiscountPolicy
@@ -5,15 +7,18 @@ namespace EcommerceV2.Domain
         private readonly IUserContext _userContext;
 
         public DefaultProductDiscountPolicy(IUserContext userContext) =>
-            _userContext = userContext;
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
 
         public override Basket Apply(Basket basket)
         {
-            if (_userContext.IsPreferredCustomer)
+            if (!_userContext.IsPreferredCustomer)
                 return basket;
 
-            return CreateDiscountedBasket(basket,
-                e => new Extent { Product = e.Product.WithDiscount(0.95f), Quantity = e.Quantity });
+            return CreateDiscountedBasket(basket, extent => new Extent
+            {
+                Product = extent.Product.WithDiscount(0.95f),
+                Quantity = extent.Quantity,
+            });
         }
     }
 }

@@ -14,7 +14,7 @@ namespace EcommerceV2.Domain
                 basketDiscountPolicy ?? throw new ArgumentNullException(nameof(basketDiscountPolicy));
         }
 
-        public Basket GetBasketFor() =>
+        public Basket GetBasket() =>
             _basketDiscountPolicy.Apply(_basketRepository.GetBasketFor());
 
         public void AddToBasket(Product product, int quantity) =>

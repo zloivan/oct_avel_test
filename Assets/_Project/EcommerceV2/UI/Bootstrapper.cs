@@ -1,3 +1,4 @@
+using System.Linq;
 using EcommerceV2.DataAccess;
 using EcommerceV2.Domain;
 using EcommerceV2.PresentationModel;
@@ -20,15 +21,17 @@ namespace EcommerceV2.UI
         [Header("User")]
         [SerializeField] private string _playerName = "Player";
 
-        [SerializeField] private bool _isPreferredCustomer;
         private BasketController _basketController;
+        private HomeController _homeController;
 
         private void Start()
         {
+            var userContext = new LocalUserContext();
+            
             var repository = new ScriptableObjectProductRepository(_database);
-            var homeController = new HomeController(repository);
-
-            _view.Render(homeController.Index(_isPreferredCustomer));
+            _homeController = new HomeController(repository);
+            
+            RenderHome(userContext);
 
             var discountRepository = new ScriptableObjectDiscountRepository(_discountDatabase);
             var discountPolicy = new RepositoryBasketDiscountPolicy(discountRepository);
@@ -36,19 +39,18 @@ namespace EcommerceV2.UI
             var basketService = new BasketService(basketRepository, discountPolicy);
             _basketController = new BasketController(basketService);
 
-
             RenderBaskets();
         }
 
         public void OnAddFirstProductToBasket()
         {
-            var product = _database.Products.Find(p=>p.IsFeatured);
+            var product = _database.Products.FirstOrDefault();
             if (product == null)
             {
                 return;
             }
             
-            _basketController.AddToBasket(_playerName, new Product
+            _basketController.AddToBasket(new Product
             {
                 Name = product.Name,
                 UnitPrice = product.UnitPrice,
@@ -59,13 +61,14 @@ namespace EcommerceV2.UI
 
         public void OnEmptyBasket()
         {
-            _basketController.EmptyBasket(_playerName);
+            _basketController.EmptyBasket();
             RenderBaskets();
         }
 
-        private void RenderBaskets()
-        {
-            _basketView.Render(_basketController.GetBasket(_playerName));
-        }
+        private void RenderBaskets() =>
+            _basketView.Render(_basketController.GetBasket());
+
+        private void RenderHome(LocalUserContext userContext) =>
+            _view.Render(_homeController.Index(userContext.IsPreferredCustomer));
     }
 }
