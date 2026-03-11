@@ -13,10 +13,7 @@ namespace EcommerceV2.DataAccess
             _discountDatabase = discountDatabase ?? throw new ArgumentNullException(nameof(discountDatabase));
 
         public override IEnumerable<Product> GetDiscountedProducts() =>
-            _discountDatabase.DiscountedProducts.Select(p => new Product
-            {
-                Name = p.Name,
-                UnitPrice = p.UnitPrice,
-            });
+            _discountDatabase.DiscountedProducts.Select(p =>
+                new Product(p.ProductId, p.Name, p.UnitPrice));
     }
 }

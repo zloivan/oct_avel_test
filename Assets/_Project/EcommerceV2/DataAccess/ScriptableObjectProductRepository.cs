@@ -15,6 +15,6 @@ namespace EcommerceV2.DataAccess
         public override IEnumerable<Product> GetFeaturedProducts() =>
             _database.Products
                 .Where(p => p.IsFeatured)
-                .Select(p => new Product { Name = p.Name, UnitPrice = p.UnitPrice });
+                .Select(p => new Product(p.ProductId, p.Name, p.UnitPrice));
     }
 }

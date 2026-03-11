@@ -10,10 +10,12 @@ namespace EcommerceV2.UI
     {
         [Header("Featured Products")]
         [SerializeField] private ProductDatabase _database;
+
         [SerializeField] private FeaturedProductsView _view;
 
         [Header("Basket")]
         [SerializeField] private BasketView _basketView;
+
         [SerializeField] private DiscountDatabase _discountDatabase;
 
         [Header("User")]
@@ -49,11 +51,8 @@ namespace EcommerceV2.UI
                 return;
             }
 
-            _basketController.AddToBasket(new Product
-            {
-                Name = product.Name,
-                UnitPrice = product.UnitPrice,
-            }, 1);
+            _basketController.AddToBasket(
+                new Product(product.ProductId, product.Name, product.UnitPrice), 1);
 
             RenderBaskets(_userContext);
         }
